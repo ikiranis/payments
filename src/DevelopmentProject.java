@@ -1,8 +1,8 @@
 public class DevelopmentProject extends Project {
-    private int hours;
+    private int months;
 
-    public DevelopmentProject(String name, int hours) {
+    public DevelopmentProject(String name, int months) {
         super(name);
-        this.hours = hours;
+        this.months = months;
     }
 }
