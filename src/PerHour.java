@@ -4,4 +4,8 @@ public class PerHour extends PaymentType {
     public PerHour(int hours) {
         this.hours = hours;
     }
+
+    public int getHours() {
+        return hours;
+    }
 }
