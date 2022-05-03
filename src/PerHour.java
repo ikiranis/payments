@@ -1,4 +1,4 @@
-public class PerHour extends Payment {
+public class PerHour extends PaymentType {
     private int hours;
 
     public PerHour(int hours) {

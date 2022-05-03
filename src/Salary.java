@@ -1,2 +1,2 @@
-public class Salary extends Payment {
+public class Salary extends PaymentType {
 }

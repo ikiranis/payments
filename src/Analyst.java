@@ -1,6 +1,6 @@
 public class Analyst extends Employee {
 
-    public Analyst(String name, Payment payment) {
-        super(name, payment);
+    public Analyst(String name, PaymentType paymentType) {
+        super(name, paymentType);
     }
 }

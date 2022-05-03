@@ -1,6 +1,6 @@
 public class Manager extends Employee {
 
-    public Manager(String name, Payment payment) {
-        super(name, payment);
+    public Manager(String name, PaymentType paymentType) {
+        super(name, paymentType);
     }
 }

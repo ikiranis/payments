@@ -2,12 +2,12 @@ import java.util.List;
 
 public class Employee {
     private String name;
-    private Payment payment;
+    private PaymentType paymentType;
     private List<Project> projectList;
 
-    public Employee(String name, Payment payment) {
+    public Employee(String name, PaymentType paymentType) {
         this.name = name;
-        this.payment = payment;
+        this.paymentType = paymentType;
     }
 
     // Εισαγωγή έργου στη λίστα των έργων του υπαλλήλου
