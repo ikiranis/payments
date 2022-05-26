@@ -1,9 +1,10 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
     private String name;
     private PaymentType paymentType;
-    private List<Project> projectList;
+    private List<Project> projectList = new ArrayList<>();
     private int monthlySalary;
     private int hourRate;
     private int bonus = 80;
@@ -13,6 +14,10 @@ public class Employee {
         this.paymentType = paymentType;
         this.monthlySalary = monthlySalary;
         this.hourRate = hourRate;
+    }
+
+    public String getName() {
+        return name;
     }
 
     // Εισαγωγή έργου στη λίστα των έργων του υπαλλήλου

@@ -1,7 +1,8 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Company {
-    private List<Employee> employeeList;
+    private List<Employee> employeeList = new ArrayList<>();
 
     // Εισαγωγή υπαλλήλου στην εταιρεία
     public void addEmployee(Employee employee) {
@@ -10,12 +11,29 @@ public class Company {
 
     // Εισαγωγή έργου στον υπάλληλο
     public void addProjectToEmployee(String name, Project project) {
-        // Εύρεση υπαλλήλου με το όνομα name και προσθήκη του έργου σε αυτόν
-        employeeList.get(employeeList.indexOf(name)).addProject(project);
+        // Εύρεση υπαλλήλου με το όνομα name
+        Employee employee = employeeList.stream()
+                .filter(e -> (e.getName().equals(name)))
+                .findFirst()
+                .orElse(null);
+
+        // Προσθήκη του έργου στον employee
+        employee.addProject(project);
     }
 
-    // Υπολογισμός μισθοδοσίας
+    // Υπολογισμός μηνιαίας μισθοδοσίας
     public void calcPayroll() {
+        int salarySum = 0;
+
+        // Εκτύπωση μισθού για κάθε υπάλληλο και υπολογισμός του
+        // συνολικού ποσού μισθοδοσίας για την εταιρεία
+        for(Employee employee : employeeList) {
+            System.out.println("Name: " + employee.getName() + " Salary: " + employee.getMonthlySalary() + " ευρώ");
+            salarySum += employee.getMonthlySalary();
+        }
+
+        System.out.println("Total monthly salaries: " + salarySum);
+
     }
 
     // Αποθήκευση μισθοδοσίας μήνα

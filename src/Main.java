@@ -1,6 +1,6 @@
 public class Main {
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         Company c = new Company();
         c.addEmployee(new Developer("AA", new Salary()));
         c.addEmployee(new Manager("BB", new Salary()));
