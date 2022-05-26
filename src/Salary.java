@@ -1,2 +1,2 @@
-public class Salary implements PaymentType {
+public class Salary extends PaymentType {
 }
