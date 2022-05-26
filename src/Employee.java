@@ -29,7 +29,7 @@ public class Employee {
     public int getMonthlySalary() {
         // An το paymentType είναι Salary, υπολογίζει μηνιαίο μισθό
         if (paymentType instanceof Salary) {
-            return monthlySalary + bonus;
+            return monthlySalary + (bonus * projectList.size());
         }
 
         // Αλλιώς υπολογίζει τον μισθό με βάση την ώρα
