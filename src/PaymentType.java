@@ -1,2 +1,2 @@
-public class PaymentType {
+public interface PaymentType {
 }
