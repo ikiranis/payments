@@ -1,9 +1,10 @@
 import java.util.Scanner;
 
 public class Main {
+    private static Company c = new Company();
 
-    public static void main(String[] args) {
-        Company c = new Company();
+    // Εισαγωγή εργαζομένων
+    private static void addEmployees() {
         Scanner input = new Scanner(System.in);
         boolean addingEmployees;
 
@@ -48,10 +49,16 @@ public class Main {
             c.addEmployee(employee);
 
             // Ερώτηση για συνέχεια εισαγωγής εργαζομένων
-            System.out.println("Do you want to add another employee? (Y/N)");
-            addingEmployees = input.next().charAt(0) == 'Y';
+            System.out.println("Do you want to add another employee? (y/n)");
+            addingEmployees = input.next().charAt(0) == 'y';
         } while (addingEmployees);
+    }
 
+    public static void main(String[] args) {
+
+        addEmployees();
+
+        c.calcPayroll();
 
 //        c.addEmployee(new Developer("AA", new Salary()));
 //        c.addEmployee(new Manager("BB", new Salary()));
@@ -65,7 +72,5 @@ public class Main {
 //        c.addProjectToEmployee("KK", new DevelopmentProject("Website for UoM"));
 //        c.addProjectToEmployee("BB", new TechnicalProject("Network setup for EAP"));
 
-
-        c.calcPayroll();
     }
 }
