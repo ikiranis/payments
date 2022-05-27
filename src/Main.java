@@ -23,13 +23,13 @@ public class Main {
             do {
                 System.out.println("Give number for employee type. 1: Developer, 2: Manager, 3: Analyst, 4: Technical");
                 employeeTypeNumber = input.nextInt();
-            } while (employeeTypeNumber>4 || employeeTypeNumber<1);
+            } while ((employeeTypeNumber > 4) || (employeeTypeNumber < 1));
 
             // Εισαγωγή τύπου μισθοδοσίας
             do {
                 System.out.println("Give number for payment type. 1: Salary, 2: Per Hour");
                 paymentTypeNumber = input.nextInt();
-            } while (paymentTypeNumber>2 || employeeTypeNumber<1);
+            } while ((paymentTypeNumber > 2) || (paymentTypeNumber < 1));
 
             // Δημιουργία αντικειμένου PaymentType
             switch (paymentTypeNumber) {
