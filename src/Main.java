@@ -1,4 +1,3 @@
-import java.sql.Struct;
 import java.util.Scanner;
 
 public class Main {
@@ -6,19 +5,51 @@ public class Main {
     public static void main(String[] args) {
         Company c = new Company();
         Scanner input = new Scanner(System.in);
-        boolean addingEmployees = true;
+        boolean addingEmployees;
 
+        // Εισαγωγή εργαζόμενων μέχρι να επιλεχθεί Ν, στην αντίστοιχη ερώτηση
         do {
+            PaymentType paymentType = null;
+            Employee employee = null;
+            int employeeTypeNumber;
+            int paymentTypeNumber;
+
+            // Εισαγωγή ονόματος
             System.out.println("Give employee name");
             String name = input.next();
-            System.out.println("Give number for employee type. 1: Developer, 2: Manager, 3: Analyst, 4: Technical");
-            int employeeType = input.nextInt();
-            System.out.println("Give number for payment type. 1: Salary, 2: Per Hour");
-            int paymentType = input.nextInt();
 
+            // Εισαγωγή τύπου εργαζόμενου
+            do {
+                System.out.println("Give number for employee type. 1: Developer, 2: Manager, 3: Analyst, 4: Technical");
+                employeeTypeNumber = input.nextInt();
+            } while (employeeTypeNumber>4 || employeeTypeNumber<1);
+
+            // Εισαγωγή τύπου μισθοδοσίας
+            do {
+                System.out.println("Give number for payment type. 1: Salary, 2: Per Hour");
+                paymentTypeNumber = input.nextInt();
+            } while (paymentTypeNumber>2 || employeeTypeNumber<1);
+
+            // Δημιουργία αντικειμένου PaymentType
+            switch (paymentTypeNumber) {
+                case 1: paymentType = new Salary(); break;
+                case 2: paymentType = new PerHour(0);
+            }
+
+            // Δημιουργία του αντικειμένου Employee
+            switch (employeeTypeNumber) {
+                case 1: employee = new Developer(name, paymentType); break;
+                case 2: employee = new Manager(name, paymentType); break;
+                case 3: employee = new Analyst(name, paymentType); break;
+                case 4: employee = new Technical(name, paymentType);
+            }
+
+            // Προσθήκη εργαζομένου στην εταιρεία
+            c.addEmployee(employee);
+
+            // Ερώτηση για συνέχεια εισαγωγής εργαζομένων
             System.out.println("Do you want to add another employee? (Y/N)");
             addingEmployees = input.next().charAt(0) == 'Y';
-
         } while (addingEmployees);
 
 
@@ -33,6 +64,8 @@ public class Main {
 //        c.addProjectToEmployee("CC", new TechnicalProject("Network setup for EAP"));
 //        c.addProjectToEmployee("KK", new DevelopmentProject("Website for UoM"));
 //        c.addProjectToEmployee("BB", new TechnicalProject("Network setup for EAP"));
-//        c.calcPayroll();
+
+
+        c.calcPayroll();
     }
 }
