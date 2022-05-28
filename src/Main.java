@@ -1,11 +1,12 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     private static Company c = new Company();
+    private static Scanner input = new Scanner(System.in);
 
     // Εισαγωγή εργαζομένων
     private static void addEmployees() {
-        Scanner input = new Scanner(System.in);
         boolean addingEmployees;
 
         // Εισαγωγή εργαζόμενων μέχρι να επιλεχθεί Ν, στην αντίστοιχη ερώτηση
@@ -54,9 +55,71 @@ public class Main {
         } while (addingEmployees);
     }
 
+    // Εισαγωγή του εργαζόμενου σε projects
+    private static void addEmployeeToProjects(Employee employee) {
+        int projectType;
+        Project project = null;
+
+        do {
+            System.out.println("Add employee to project 1. Development Project, 2. Technical Project, 3. Nothing");
+            projectType = input.nextInt();
+
+            if (projectType == 3) {
+                continue;
+            }
+
+            System.out.println("Give project name");
+            String projectName = input.next();
+
+            switch (projectType) {
+                case 1: project = new DevelopmentProject(projectName); break;
+                case 2: project = new TechnicalProject(projectName);
+            }
+
+            c.addProjectToEmployee(employee.getName(), project);
+
+        } while ((projectType > 0) && (projectType < 3));
+    }
+
+    // Εισαγωγή ωρών εργασίας για τον εργαζόμενο
+    private static void addWorkingHoursToEmployee(Employee employee) {
+        System.out.println("Give working hours for employee");
+        int hours = input.nextInt();
+
+        ((PerHour)employee.getPaymentType()).setHours(hours);
+    }
+
+    // Εισαγωγή μισθοδοσίας για κάθε μήνα
+    private static void addMonthlyPayroll() {
+        List<Employee> employeeList = c.getEmployeeList();
+        boolean addingMonths;
+        int month = 1;
+
+        do {
+            System.out.println("Add data for month: " + month);
+
+            for(Employee employee : employeeList) {
+                System.out.println("Employee name: " + employee.getName());
+
+                if (employee.getPaymentType() instanceof Salary) {
+                    addEmployeeToProjects(employee);
+                } else {
+                    addWorkingHoursToEmployee(employee);
+                }
+            }
+
+            month++;
+
+            System.out.println("Do you want to add another month? (y/n)");
+            addingMonths = (input.next().charAt(0) == 'y' && month<=12);
+        } while (addingMonths);
+    }
+
     public static void main(String[] args) {
 
         addEmployees();
+
+        addMonthlyPayroll();
 
         c.calcPayroll();
 

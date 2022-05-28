@@ -4,6 +4,10 @@ import java.util.List;
 public class Company {
     private List<Employee> employeeList = new ArrayList<>();
 
+    public List<Employee> getEmployeeList() {
+        return employeeList;
+    }
+
     // Εισαγωγή υπαλλήλου στην εταιρεία
     public void addEmployee(Employee employee) {
         employeeList.add(employee);

@@ -8,4 +8,8 @@ public class PerHour extends PaymentType {
     public int getHours() {
         return hours;
     }
+
+    public void setHours(int hours) {
+        this.hours = hours;
+    }
 }

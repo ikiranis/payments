@@ -20,6 +20,10 @@ public class Employee {
         return name;
     }
 
+    public PaymentType getPaymentType() {
+        return paymentType;
+    }
+
     // Εισαγωγή έργου στη λίστα των έργων του υπαλλήλου
     public void addProject(Project project) {
         projectList.add(project);
