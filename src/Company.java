@@ -46,13 +46,28 @@ public class Company {
         return payroll;
     }
 
+    public String calcTotalPayroll() {
+        int salarySum = 0;
+
+        // Υπολογισμός του συνολικού ποσού μισθοδοσίας για την εταιρεία
+        for(Employee employee : employeeList) {
+            PaymentType paymentType = employee.getPaymentType();
+
+            salarySum += paymentType.getSalary(employee);
+        }
+
+        String payroll = String.format("%d\n", salarySum);
+
+        return payroll;
+    }
+
     // Αποθήκευση μισθοδοσίας μήνα
-    public void save(int month) {
+    public void save(String payroll) {
         try {
             // Δημιουργία αρχείου
-            FileWriter file = new FileWriter(String.format("payroll%d.txt", month));
+            FileWriter file = new FileWriter("payroll.txt");
 
-            file.write(calcPayroll());
+            file.write(payroll);
 
             // Κλείσιμο αρχείου
             file.close();
@@ -65,23 +80,19 @@ public class Company {
 
     // Εκτύπωση ετήσιας μισθοδοσίας
     public void annualPayroll() {
-        for(int i=1; i<=12; i++) {
-            try {
-                FileReader file = new FileReader(String.format("payroll%d.txt", i));
+        try {
+            FileReader file = new FileReader("payroll.txt");
 
-                System.out.println("###### Month: " + i + " ######");
-
-                int character;
-                while ((character = file.read()) != -1) {
-                    System.out.print((char)character);
-                }
-
-                System.out.println();
-
-                file.close();
-            } catch (Exception e) {
-                System.out.print(" ");
+            int character;
+            while ((character = file.read()) != -1) {
+                System.out.print((char)character);
             }
+
+            System.out.println();
+
+            file.close();
+        } catch (Exception e) {
+            System.out.print("Problem with file");
         }
     }
 
@@ -132,6 +143,7 @@ public class Company {
     public void addMonthlyPayroll() {
         boolean addingMonths;
         int month = 1;
+        String payrolls = "";
 
         do {
             System.out.println("###### Add data for month: " + month);
@@ -146,8 +158,8 @@ public class Company {
                 }
             }
 
-            // Αποθήκευση του payroll του μήνα σε αρχείο
-            save(month);
+            // Υπολογισμός συνολικής μισθοδοσίας του μήνα
+            payrolls += calcTotalPayroll();
 
             month++;
 
@@ -155,6 +167,9 @@ public class Company {
             addingMonths = (input.next().charAt(0) == 'y' && month<=12);
             System.out.println();
         } while (addingMonths);
+
+        // Αποθήκευση των μισθοδοσιών σε αρχείο
+        save(payrolls);
     }
 
     // Εισαγωγή εργαζομένων
