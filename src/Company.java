@@ -1,3 +1,4 @@
+import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -77,16 +78,25 @@ public class Company {
     // Εκτύπωση ετήσιας μισθοδοσίας
     public void annualPayroll() {
         try {
-            FileReader file = new FileReader("payroll.txt");
+            BufferedReader reader = new BufferedReader(new FileReader("payroll.txt"));
+            String line;
+            int totalPayroll = 0;
+            int i = 1;
 
-            int character;
-            while ((character = file.read()) != -1) {
-                System.out.print((char)character);
-            }
+            do {
+                line = reader.readLine();
+                if(line != null) {
+                    System.out.println(String.format("## Month %d: %s euro", i++, line));
+                    totalPayroll += Integer.parseInt(line);
+                }
+
+            } while(line != null);
+
+            System.out.println("#### Total Payroll: " + totalPayroll + " euro");
 
             System.out.println();
 
-            file.close();
+            reader.close();
         } catch (Exception e) {
             System.out.print("Problem with file");
         }
@@ -139,7 +149,7 @@ public class Company {
     public void addMonthlyPayroll() {
         boolean addingMonths;
         int month = 1;
-        String payrolls = "";
+        StringBuilder payrolls = new StringBuilder();
 
         do {
             System.out.println("###### Add data for month: " + month);
@@ -155,7 +165,7 @@ public class Company {
             }
 
             // Υπολογισμός συνολικής μισθοδοσίας του μήνα
-            payrolls += calcTotalPayroll();
+            payrolls.append(calcTotalPayroll());
 
             month++;
 
@@ -165,7 +175,7 @@ public class Company {
         } while (addingMonths);
 
         // Αποθήκευση των μισθοδοσιών σε αρχείο
-        save(payrolls);
+        save(payrolls.toString());
     }
 
     // Εισαγωγή εργαζομένων
