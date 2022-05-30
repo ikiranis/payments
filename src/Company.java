@@ -200,7 +200,7 @@ public class Company {
             // Δημιουργία αντικειμένου PaymentType
             switch (paymentTypeNumber) {
                 case 1: paymentType = new Salary(); break;
-                case 2: paymentType = new PerHour(0);
+                case 2: paymentType = new PerHour();
             }
 
             // Δημιουργία του αντικειμένου Employee
