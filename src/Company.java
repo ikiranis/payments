@@ -2,6 +2,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -89,8 +90,15 @@ public class Company {
 
         do {
             do {
+                projectType = 0;
+
                 System.out.println("Add employee to project 1. Development Project, 2. Technical Project, 3. Nothing");
-                projectType = input.nextInt();
+                try {
+                    projectType = input.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Please give an integer");
+                    input.next();
+                }
             } while (projectType<1 || projectType>3);
 
             if (projectType == 3) {
@@ -164,15 +172,29 @@ public class Company {
 
             // Εισαγωγή τύπου εργαζόμενου
             do {
+                employeeTypeNumber = 0;
                 System.out.println("Give number for employee type. 1: Developer, 2: Manager, 3: Analyst, 4: Technical");
-                employeeTypeNumber = input.nextInt();
+
+                try {
+                    employeeTypeNumber = input.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Please give an integer");
+                    input.next();
+                }
 
             } while ((employeeTypeNumber > 4) || (employeeTypeNumber < 1));
 
             // Εισαγωγή τύπου μισθοδοσίας
             do {
+                paymentTypeNumber = 0;
                 System.out.println("Give number for payment type. 1: Salary, 2: Per Hour");
-                paymentTypeNumber = input.nextInt();
+
+                try {
+                    paymentTypeNumber = input.nextInt();
+                } catch (InputMismatchException e) {
+                    System.out.println("Please give an integer");
+                    input.next();
+                }
             } while ((paymentTypeNumber > 2) || (paymentTypeNumber < 1));
 
             // Δημιουργία αντικειμένου PaymentType
