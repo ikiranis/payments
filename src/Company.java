@@ -28,22 +28,19 @@ public class Company {
     }
 
     // Υπολογισμός μηνιαίας μισθοδοσίας
-    public String calcPayroll() {
+    public void calcPayroll() {
         int salarySum = 0;
-        String payroll = "";
 
         // Εκτύπωση μισθού για κάθε υπάλληλο και υπολογισμός του
         // συνολικού ποσού μισθοδοσίας για την εταιρεία
         for(Employee employee : employeeList) {
             PaymentType paymentType = employee.getPaymentType();
 
-            payroll += "Name: " + employee.getName() + " Salary: " + paymentType.getSalary(employee) + " euro\n";
+            System.out.println("Name: " + employee.getName() + " Salary: " + paymentType.getSalary(employee) + " euro");
             salarySum += paymentType.getSalary(employee);
         }
 
-        payroll += "Total monthly salaries: " + salarySum + " euro\n";
-
-        return payroll;
+        System.out.println("Total monthly salaries: " + salarySum + " euro");
     }
 
     public String calcTotalPayroll() {
@@ -74,7 +71,6 @@ public class Company {
         } catch (IOException e) {
             // Exception σε περίπτωση κάποιου σφάλματος στον χειρισμό του αρχείου
             System.out.println("Problem with file");
-            e.printStackTrace();
         }
     }
 
