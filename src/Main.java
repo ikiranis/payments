@@ -123,6 +123,6 @@ public class Main {
 
         addMonthlyPayroll();
 
-//        System.out.println(c.calcPayroll());
+        c.annualPayroll();
     }
 }

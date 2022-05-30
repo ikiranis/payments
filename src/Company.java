@@ -1,3 +1,5 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -61,8 +63,21 @@ public class Company {
         }
     }
 
-    // Υπολογισμός ετήσιας μισθοδοσίας
+    // Εκτύπωση ετήσιας μισθοδοσίας
     public void annualPayroll() {
+        for(int i=1; i<=12; i++) {
+            try {
+                FileReader file = new FileReader(String.format("payroll%d.txt", i));
 
+                int character;
+                while ((character = file.read()) != -1) {
+                    System.out.print((char)character);
+                }
+
+                file.close();
+            } catch (Exception e) {
+                System.out.println("Υπάρχει πρόβλημα με το αρχείο");
+            }
+        }
     }
 }
