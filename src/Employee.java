@@ -20,6 +20,22 @@ public class Employee {
         return name;
     }
 
+    public int getHourRate() {
+        return hourRate;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public int getMonthlySalary() {
+        return monthlySalary;
+    }
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
     public PaymentType getPaymentType() {
         return paymentType;
     }
@@ -29,14 +45,4 @@ public class Employee {
         projectList.add(project);
     }
 
-    // Υπολογίζει τον μισθό για έναν μήνα
-    public int getMonthlySalary() {
-        // An το paymentType είναι Salary, υπολογίζει μηνιαίο μισθό
-        if (paymentType instanceof Salary) {
-            return monthlySalary + (bonus * projectList.size());
-        }
-
-        // Αλλιώς υπολογίζει τον μισθό με βάση την ώρα
-        return hourRate * ((PerHour)paymentType).getHours();
-    }
 }

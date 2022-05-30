@@ -35,8 +35,10 @@ public class Company {
         // Εκτύπωση μισθού για κάθε υπάλληλο και υπολογισμός του
         // συνολικού ποσού μισθοδοσίας για την εταιρεία
         for(Employee employee : employeeList) {
-            payroll += "Name: " + employee.getName() + " Salary: " + employee.getMonthlySalary() + " euro\n";
-            salarySum += employee.getMonthlySalary();
+            PaymentType paymentType = employee.getPaymentType();
+
+            payroll += "Name: " + employee.getName() + " Salary: " + paymentType.getSalary(employee) + " euro\n";
+            salarySum += paymentType.getSalary(employee);
         }
 
         payroll += "Total monthly salaries: " + salarySum + " euro\n";

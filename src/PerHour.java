@@ -16,4 +16,9 @@ public class PerHour extends PaymentType {
     public void setHours(int hours) {
         this.hours = hours;
     }
+
+    @Override
+    public int getSalary(Employee employee) {
+        return employee.getHourRate() * hours;
+    }
 }
