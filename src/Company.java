@@ -139,8 +139,18 @@ public class Company {
 
     // Εισαγωγή ωρών εργασίας για τον εργαζόμενο
     private void addWorkingHoursToEmployee(Employee employee) {
+        int hours = 0;
+
         System.out.println("Give working hours for employee");
-        int hours = input.nextInt();
+
+        do {
+            try {
+                hours = input.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Please give an integer");
+                input.next();
+            }
+        } while (hours == 0);
 
         ((PerHour)employee.getPaymentType()).setHours(hours);
     }
