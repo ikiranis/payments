@@ -108,6 +108,9 @@ public class Main {
                 }
             }
 
+            // Αποθήκευση του payroll του μήνα σε αρχείο
+            c.save(month);
+
             month++;
 
             System.out.println("Do you want to add another month? (y/n)");
@@ -120,6 +123,6 @@ public class Main {
 
         addMonthlyPayroll();
 
-        c.calcPayroll();
+//        System.out.println(c.calcPayroll());
     }
 }

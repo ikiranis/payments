@@ -1,3 +1,5 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,22 +28,37 @@ public class Company {
     }
 
     // Υπολογισμός μηνιαίας μισθοδοσίας
-    public void calcPayroll() {
+    public String calcPayroll() {
         int salarySum = 0;
+        String payroll = "";
 
         // Εκτύπωση μισθού για κάθε υπάλληλο και υπολογισμός του
         // συνολικού ποσού μισθοδοσίας για την εταιρεία
         for(Employee employee : employeeList) {
-            System.out.println("Name: " + employee.getName() + " Salary: " + employee.getMonthlySalary() + " euro");
+            payroll += "Name: " + employee.getName() + " Salary: " + employee.getMonthlySalary() + " euro\n";
             salarySum += employee.getMonthlySalary();
         }
 
-        System.out.println("Total monthly salaries: " + salarySum + " euro");
+        payroll += "Total monthly salaries: " + salarySum + " euro\n";
 
+        return payroll;
     }
 
     // Αποθήκευση μισθοδοσίας μήνα
-    public void save() {
+    public void save(int month) {
+        try {
+            // Δημιουργία αρχείου
+            FileWriter file = new FileWriter(String.format("payroll%d.txt", month));
+
+            file.write(calcPayroll());
+
+            // Κλείσιμο αρχείου
+            file.close();
+        } catch (IOException e) {
+            // Exception σε περίπτωση κάποιου σφάλματος στον χειρισμό του αρχείου
+            System.out.println("Problem with file");
+            e.printStackTrace();
+        }
     }
 
     // Υπολογισμός ετήσιας μισθοδοσίας
