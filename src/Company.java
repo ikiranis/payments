@@ -44,19 +44,19 @@ public class Company {
         System.out.println("Total monthly salaries: " + salarySum + " euro");
     }
 
+    // Υπολογισμός συνολικού ποσού μισθοδοσίας του μήνα
     public String calcTotalPayroll() {
         int salarySum = 0;
 
-        // Υπολογισμός του συνολικού ποσού μισθοδοσίας για την εταιρεία
+        // Πρόσθεση του μισθού του κάθε υπαλλήλου
         for(Employee employee : employeeList) {
             PaymentType paymentType = employee.getPaymentType();
 
             salarySum += paymentType.getSalary(employee);
         }
 
-        String payroll = String.format("%d\n", salarySum);
-
-        return payroll;
+        // Επιστροφή του τελικού ποσού σε string
+        return String.format("%d\n", salarySum);
     }
 
     // Αποθήκευση μισθοδοσίας μήνα
@@ -65,6 +65,7 @@ public class Company {
             // Δημιουργία αρχείου
             FileWriter file = new FileWriter("payroll.txt");
 
+            // Εγγραφή στο αρχείο
             file.write(payroll);
 
             // Κλείσιμο αρχείου
@@ -75,7 +76,7 @@ public class Company {
         }
     }
 
-    // Εκτύπωση ετήσιας μισθοδοσίας
+    // Εκτύπωση ετήσιας μισθοδοσίας διαβάζοντας το αρχείο
     public void annualPayroll() {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("payroll.txt"));
@@ -83,6 +84,7 @@ public class Company {
             int totalPayroll = 0;
             int i = 1;
 
+            // Διάβασμα του αρχείου γραμμή προς γραμμή και εκτύπωση της
             do {
                 line = reader.readLine();
                 if(line != null) {
@@ -92,12 +94,13 @@ public class Company {
 
             } while(line != null);
 
+            // Εκτύπωση του συνολικού ποσού ετήσιας μισθοδοσίας
             System.out.println("#### Total Payroll: " + totalPayroll + " euro");
 
             System.out.println();
 
             reader.close();
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.print("Problem with file");
         }
     }
@@ -107,11 +110,14 @@ public class Company {
         int projectType;
         Project project = null;
 
+        // Προσθήκη του εργαζόμενου σε projects μέχρι να απαντηθεί 3
         do {
+            // Επιλογή τύπου project, με αμυντικό προγραμματισμό
             do {
                 projectType = 0;
-
                 System.out.println("Add employee to project 1. Development Project, 2. Technical Project, 3. Nothing");
+
+                // Έλεγχος αν έχει δοθεί integer
                 try {
                     projectType = input.nextInt();
                 } catch (InputMismatchException e) {
@@ -120,18 +126,22 @@ public class Company {
                 }
             } while (projectType<1 || projectType>3);
 
+            // Αν δοθεί 3, τότε βγαίνει από το loop
             if (projectType == 3) {
                 continue;
             }
 
+            // Εισαγωγή ονόματος project
             System.out.println("Give project name");
             String projectName = input.next();
 
+            // Δημιουργία αντικείμενου για το project
             switch (projectType) {
                 case 1: project = new DevelopmentProject(projectName); break;
                 case 2: project = new TechnicalProject(projectName);
             }
 
+            // Προσθήκη του εργαζόμενου στo project
             addProjectToEmployee(employee.getName(), project);
 
         } while ((projectType > 0) && (projectType < 3));
@@ -143,6 +153,7 @@ public class Company {
 
         System.out.println("Give working hours for employee");
 
+        // Εισαγωγή ωρών εργασίας με αμυντικό προγραμματισμό
         do {
             try {
                 hours = input.nextInt();
@@ -152,6 +163,7 @@ public class Company {
             }
         } while (hours == 0);
 
+        // Θέτει τις ώρες εργασίας για τον εργαζόμενο
         ((PerHour)employee.getPaymentType()).setHours(hours);
     }
 
@@ -161,24 +173,29 @@ public class Company {
         int month = 1;
         StringBuilder payrolls = new StringBuilder();
 
+        // Προσθέτει δεδομένα για κάθε μήνα μέχρι να δοθεί "n" ή δοθούν πάνω από 12 μήνες
         do {
             System.out.println("###### Add data for month: " + month);
 
+            // Για κάθε εργαζόμενο ζητούνται τα αντίστοιχα data,
+            // ανάλογα τον τύπο πληρωμής που έχει
             for(Employee employee : employeeList) {
                 System.out.println("## Employee name: " + employee.getName());
 
+                // Αν έχει τύπο Salary, ζητούνται τα projects στα οποία συμμετέχει
                 if (employee.getPaymentType() instanceof Salary) {
                     addEmployeeToProjects(employee);
-                } else {
+                } else { // Αλλιώς ζητούνται οι ώρες που δούλεψε τον συγκεκριμένο μήνα
                     addWorkingHoursToEmployee(employee);
                 }
             }
 
-            // Υπολογισμός συνολικής μισθοδοσίας του μήνα
+            // Υπολογισμός συνολικής μισθοδοσίας του μήνα και προσθήκη της στο string payrolls
             payrolls.append(calcTotalPayroll());
 
             month++;
 
+            // Επιλογή συνέχισης ή τέλους εισαγωγής δεδομένων
             System.out.println("Do you want to add another month? (y/n)");
             addingMonths = (input.next().charAt(0) == 'y' && month<=12);
             System.out.println();
@@ -192,7 +209,7 @@ public class Company {
     public void addEmployees() {
         boolean addingEmployees;
 
-        // Εισαγωγή εργαζόμενων μέχρι να επιλεχθεί Ν, στην αντίστοιχη ερώτηση
+        // Εισαγωγή εργαζόμενων μέχρι να επιλεχθεί "n", στην αντίστοιχη ερώτηση
         do {
             PaymentType paymentType = null;
             Employee employee = null;
@@ -203,25 +220,26 @@ public class Company {
             System.out.println("Give employee name");
             String name = input.next();
 
-            // Εισαγωγή τύπου εργαζόμενου
+            // Εισαγωγή τύπου εργαζόμενου με αμυντικό προγραμματισμό
             do {
                 employeeTypeNumber = 0;
                 System.out.println("Give number for employee type. 1: Developer, 2: Manager, 3: Analyst, 4: Technical");
 
+                // Έλεγχος αν έχει δοθεί integer
                 try {
                     employeeTypeNumber = input.nextInt();
                 } catch (InputMismatchException e) {
                     System.out.println("Please give an integer");
                     input.next();
                 }
-
             } while ((employeeTypeNumber > 4) || (employeeTypeNumber < 1));
 
-            // Εισαγωγή τύπου μισθοδοσίας
+            // Εισαγωγή τύπου μισθοδοσίας, με αμυντικό προγραμματισμό
             do {
                 paymentTypeNumber = 0;
                 System.out.println("Give number for payment type. 1: Salary, 2: Per Hour");
 
+                // Έλεγχος αν έχει δοθεί integer
                 try {
                     paymentTypeNumber = input.nextInt();
                 } catch (InputMismatchException e) {

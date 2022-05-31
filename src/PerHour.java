@@ -17,6 +17,7 @@ public class PerHour extends PaymentType {
         this.hours = hours;
     }
 
+    // Υπολογισμός μισθού με βάση τις ώρες εργασίας
     @Override
     public int getSalary(Employee employee) {
         return employee.getHourRate() * hours;
