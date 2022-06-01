@@ -131,9 +131,11 @@ public class Company {
                 continue;
             }
 
+            input.nextLine(); // clear buffer
+
             // Εισαγωγή ονόματος project
             System.out.println("Give project name");
-            String projectName = input.next();
+            String projectName = input.nextLine();
 
             // Δημιουργία αντικείμενου για το project
             switch (projectType) {
